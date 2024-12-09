@@ -2,14 +2,14 @@
 pragma solidity 0.8.17;
 
 import "@openzeppelin/contracts/access/Ownable2Step.sol";
-import "../interfaces/ISafeMsgportModule.sol";
-import "../interfaces/ISafeProxyFactory.sol";
-import "../interfaces/ISafe.sol";
-import "../interfaces/IPortRegistry.sol";
-import "../interfaces/IMessagePort.sol";
-import "../ports/base/PortMetadata.sol";
-import "../user/Application.sol";
-import "../utils/CREATE3.sol";
+import "@msgport/interfaces/IPortRegistry.sol";
+import "@msgport/interfaces/IMessagePort.sol";
+import "@msgport/ports/base/PortMetadata.sol";
+import "@msgport/user/Application.sol";
+import "./interfaces/ISafeMsgportModule.sol";
+import "./interfaces/ISafeProxyFactory.sol";
+import "./interfaces/ISafe.sol";
+import "./utils/CREATE3.sol";
 
 /// @title XAccountFactory
 /// @dev XAccountFactory is a factory contract for create xAccount.

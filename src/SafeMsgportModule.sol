@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.17;
 
-import "../interfaces/ISafe.sol";
-import "../user/xAuth.sol";
+import "./interfaces/ISafe.sol";
+import "./user/xAuth.sol";
 
 contract SafeMsgportModule is xAuth {
     address public port;

@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.17;
 
-import "./Application.sol";
-import "../interfaces/IPortRegistry.sol";
+import "@msgport/user/Application.sol";
+import "@msgport/interfaces/IPortRegistry.sol";
 
 abstract contract xAuth is Application {
     function xOwner() public virtual returns (uint256, address);
