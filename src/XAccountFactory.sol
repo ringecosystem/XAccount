@@ -10,7 +10,7 @@ import "./utils/CREATE3.sol";
 /// @dev XAccountFactory is a factory contract for create xAccount.
 ///   - 1 account can deploy multi xAccount on target chain for each factory.
 contract XAccountFactory {
-    address public constant safeMsgportModule = 0x1899e901F53534489CEA580b6Ec688DddCcd0b91;
+    address public immutable SAFE_MSGPORT_MODULE;
     /// Safe Deployment: https://github.com/safe-global/safe-deployments/tree/main/src/assets/v1.3.0
     address public constant safeFallbackHandler = 0xf48f2B2d2a534e402487b3ee7C18c33Aec0Fe5e4;
     address public constant safeSingletonL2 = 0x3E5c63644E683549055b9Be8653de26E0B4CD36E;
@@ -28,6 +28,10 @@ contract XAccountFactory {
         address port,
         address recovery
     );
+
+    constructor(address safeMsgportModule) {
+        SAFE_MSGPORT_MODULE = safeMsgportModule;
+    }
 
     /// @dev Create xAccount on target chain.
     /// @notice Only could be called by source chain.
@@ -89,7 +93,7 @@ contract XAccountFactory {
         bytes memory creationCode1 = safeFactory.proxyCreationCode();
         bytes memory deploymentCode1 = abi.encodePacked(creationCode1, uint256(uint160(safeSingletonL2)));
 
-        (proxy, module) = CREATE3.deploy(salt, deploymentCode1, safeMsgportModule);
+        (proxy, module) = CREATE3.deploy(salt, deploymentCode1, SAFE_MSGPORT_MODULE);
     }
 
     /// @dev Calculate xAccount address.

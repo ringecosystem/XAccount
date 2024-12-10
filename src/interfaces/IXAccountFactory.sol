@@ -5,4 +5,9 @@ interface IXAccountFactory {
     function create(bytes32 salt, uint256 fromChainId, address owner, address port, address recovery)
         external
         returns (address, address);
+
+    function xAccountOf(address deployer, bytes32 salt, uint256 fromChainId, address owner)
+        public
+        view
+        returns (address, address);
 }

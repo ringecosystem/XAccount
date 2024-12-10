@@ -32,4 +32,9 @@ contract XAccountUIFactory {
     function getDeployed(uint256 fromChainId, address owner) public view returns (address[] memory) {
         return _xAccounts[fromChainId][owner].values();
     }
+
+    function xAccountOf(address deployer, uint256 fromChainId, address owner) public view returns (address, address) {
+        bytes32 salt = keccak256(abi.encodePacked(deployer));
+        return FACTORY.xAccountOf(address(this), salt, fromChainId, owner);
+    }
 }
