@@ -7,7 +7,7 @@ interface IXAccountFactory {
         returns (address, address);
 
     function xAccountOf(address deployer, bytes32 salt, uint256 fromChainId, address owner)
-        public
+        external
         view
         returns (address, address);
 }
