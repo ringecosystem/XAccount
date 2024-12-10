@@ -34,8 +34,8 @@ contract XAccountUIFactory {
     }
 
     /// Get all deployed xAccount by xOwner(fromChainId, owner).
-    function getDeployed(uint256 fromChainId, address owner) public view returns (address[] memory) {
-        return _xAccounts[fromChainId][owner].values();
+    function getDeployed(uint256 fromChainId, address owner) public view returns (address[] memory, address[] memory) {
+        return (_xAccounts[fromChainId][owner].values(), _modules[fromChainId][owner].values());
     }
 
     /// Caculate xAccount address.
