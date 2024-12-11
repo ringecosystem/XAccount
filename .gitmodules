@@ -10,3 +10,6 @@
 [submodule "lib/msgport"]
 	path = lib/msgport
 	url = https://github.com/ringecosystem/msgport
+[submodule "lib/surl"]
+	path = lib/surl
+	url = https://github.com/memester-xyz/surl
