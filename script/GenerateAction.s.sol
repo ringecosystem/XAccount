@@ -40,10 +40,10 @@ contract GenerateActionScipt is Script {
         (address[] memory xAccounts, address[] memory modules) =
             UIFACTORY.getDeployed(ARBITRUM_SEPOLIA_CHAINID, source_chain_address);
         // select one XAccount to generate action
-        // address xAccount = xAccounts[0];
+        address xAccount = xAccounts[0];
         address module = modules[0];
         // generate call from Dapp
-        // address from = xAccount;
+        address from = xAccount;
         address target = address(1);
         bytes memory data = new bytes(0);
         uint256 value = 1;
@@ -80,8 +80,9 @@ contract GenerateActionScipt is Script {
         /// Value: fee
 
         {
-            vm.startBroadcast();
             // send msg from source chain (in tally UI)
+            vm.createSelectFork("arbitrum-sepolia");
+            vm.startBroadcast();
             IMessagePort(port).send{value: fee}(ARBITRUM_SEPOLIA_CHAINID, module, message, params);
             vm.stopBroadcast();
         }
