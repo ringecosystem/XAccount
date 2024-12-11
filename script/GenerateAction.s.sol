@@ -61,7 +61,7 @@ contract GenerateActionScipt is Script {
 
         // get port
         address targetPort = ISafeMsgportModule(module).port();
-        address sourcePort = IMessagePortPeerLookup(targetPort).peerOf(SEPOLIA_CHAINID);
+        address sourcePort = IMessagePortPeerLookup(targetPort).peerOf(ARBITRUM_SEPOLIA_CHAINID);
 
         // post request to msgport api
         // see more on `https://github.com/ringecosystem/msgport-api?tab=readme-ov-file`
