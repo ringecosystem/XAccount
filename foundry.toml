@@ -10,6 +10,7 @@ optimizer_runs = 999999
 evm_version = "london"
 bytecode_hash = "ipfs"
 extra_output_files = ["metadata"]
+via_ir = true
 
 [rpc_endpoints]
 sepolia = "https://rpc.ankr.com/eth_sepolia"

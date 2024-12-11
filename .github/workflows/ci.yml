@@ -35,5 +35,5 @@ jobs:
       - name: Run Forge build
         run: |
           forge --version
-          forge build --sizes --skip *.s.sol
+          forge build --sizes
         id: build
