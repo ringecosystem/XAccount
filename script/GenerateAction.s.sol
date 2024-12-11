@@ -28,7 +28,7 @@ interface ISafeMsgportModule {
 }
 
 /// forge script script/GenerateAction.s.sol --ffi --via-ir
-contract GenerateActionScipt is Script {
+contract GenerateActionScript is Script {
     using Surl for *;
     using stdJson for string;
 

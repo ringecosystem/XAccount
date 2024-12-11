@@ -5,7 +5,7 @@ import "forge-std/Script.sol";
 import "../src/XAccountUIFactory.sol";
 
 /// forge script script/CreateXAccount.s.sol
-contract CreateXAccountScipt is Script {
+contract CreateXAccountScript is Script {
     XAccountUIFactory UIFACTORY = XAccountUIFactory(0x1e0DBFEBD134378aaBc70a29003a9BD25B9e9E41);
     address ORMPUPGRADEABLEPORT = 0x2cd1867Fb8016f93710B6386f7f9F1D540A60812;
 
