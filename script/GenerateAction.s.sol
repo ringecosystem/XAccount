@@ -6,6 +6,10 @@ import "forge-std/Script.sol";
 import "@msgport/interfaces/IMessagePort.sol";
 import "../src/XAccountUIFactory.sol";
 
+interface IMessagePortPeerLookup {
+    function peerOf(uint256 chainId) external view returns (address);
+}
+
 /// @dev ISafeMsgportModule serves as a module integrated within the Safe system, specifically devised to enable remote administration and control of the xAccount.
 interface ISafeMsgportModule {
     /// @dev Receive xCall from root chain xOwner.
@@ -31,6 +35,7 @@ contract GenerateActionScipt is Script {
     XAccountUIFactory UIFACTORY = XAccountUIFactory(0x1e0DBFEBD134378aaBc70a29003a9BD25B9e9E41);
 
     uint256 ARBITRUM_SEPOLIA_CHAINID = 421614;
+    uint256 SEPOLIA_CHAINID = 1155511;
 
     // GenerateAction on target chain(sepolia) for timelock on source chain(arbitrum-sepolia).
     function run() public {
@@ -55,7 +60,8 @@ contract GenerateActionScipt is Script {
             abi.encodeWithSelector(ISafeMsgportModule.xExecute.selector, target, value, data, callType);
 
         // get port
-        address port = ISafeMsgportModule(module).port();
+        address targetPort = ISafeMsgportModule(module).port();
+        address sourcePort = IMessagePortPeerLookup(targetPort).peerOf(SEPOLIA_CHAINID);
 
         // post request to msgport api
         // see more on `https://github.com/ringecosystem/msgport-api?tab=readme-ov-file`
@@ -69,21 +75,21 @@ contract GenerateActionScipt is Script {
         string memory rs = string(response);
         bytes memory params = rs.readBytes(".data.params");
         uint256 fee = rs.readUint(".data.fee");
-        /// Here we go.
-        /// Target: port
-        /// Function: IMessagePort.send.selector
-        /// Function Params:
-        ///    - toChainId: ARBITRUM_SEPOLIA_CHAINID
-        ///    - toDapp: module
-        ///    - message: message
-        ///    - params params
-        /// Value: fee
 
         {
+            /// Here we go.
+            /// Target: sourcePort
+            /// Function: IMessagePort.send.selector
+            /// Function Params:
+            ///    - toChainId: ARBITRUM_SEPOLIA_CHAINID
+            ///    - toDapp: module
+            ///    - message: message
+            ///    - params params
+            /// Value: fee
             // send msg from source chain (in tally UI)
             vm.createSelectFork("arbitrum-sepolia");
             vm.startBroadcast();
-            IMessagePort(port).send{value: fee}(ARBITRUM_SEPOLIA_CHAINID, module, message, params);
+            IMessagePort(sourcePort).send{value: fee}(SEPOLIA_CHAINID, module, message, params);
             vm.stopBroadcast();
         }
     }
