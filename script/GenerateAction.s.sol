@@ -35,7 +35,7 @@ contract GenerateActionScipt is Script {
     XAccountUIFactory UIFACTORY = XAccountUIFactory(0x1e0DBFEBD134378aaBc70a29003a9BD25B9e9E41);
 
     uint256 ARBITRUM_SEPOLIA_CHAINID = 421614;
-    uint256 SEPOLIA_CHAINID = 1155511;
+    uint256 SEPOLIA_CHAINID = 11155111;
 
     // GenerateAction on target chain(sepolia) for timelock on source chain(arbitrum-sepolia).
     function run() public {
