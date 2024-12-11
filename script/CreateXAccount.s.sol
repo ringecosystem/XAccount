@@ -19,17 +19,17 @@ contract CreateXAccountScript is Script {
 
     // Create XAccount on target chain(sepolia) for timelock on source chain(arbitrum-sepolia).
     function run() public {
-        address source_chain_address = msg.sender;
+        address mockedTimelockContract = msg.sender;
         vm.createSelectFork("sepolia");
-        createXAccount(ARBITRUM_SEPOLIA_CHAINID, source_chain_address, ORMPUPGRADEABLEPORT, address(0));
+        createXAccount(ARBITRUM_SEPOLIA_CHAINID, mockedTimelockContract, ORMPUPGRADEABLEPORT, address(0));
     }
 
     /// @dev The function is utilized to create a xAccount on the target chain.
     /// @param fromChainId Source chain id.
-    /// @param owner owner on source chain.
+    /// @param timelock Timelock contract address on source chain.
     /// @param port Msgport address for send msgport.
     /// @param recovery The default safe recovery module address for xAccount.
-    function createXAccount(uint256 fromChainId, address owner, address port, address recovery) public broadcast {
-        UIFACTORY.create(fromChainId, owner, port, recovery);
+    function createXAccount(uint256 fromChainId, address timelock, address port, address recovery) public broadcast {
+        UIFACTORY.create(fromChainId, timelock, port, recovery);
     }
 }

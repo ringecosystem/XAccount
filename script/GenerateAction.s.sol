@@ -39,11 +39,11 @@ contract GenerateActionScript is Script {
 
     // GenerateAction on target chain(sepolia) for timelock on source chain(arbitrum-sepolia).
     function run() public {
-        address source_chain_address = msg.sender;
+        address mockedTimelockContract = msg.sender;
         vm.createSelectFork("sepolia");
-        // get all deployed XAccounts for xOwner(source chainid + source chaind address)
+        // get all deployed XAccounts for xOwner(source chainid + source TimelockContract address)
         (address[] memory xAccounts, address[] memory modules) =
-            UIFACTORY.getDeployed(ARBITRUM_SEPOLIA_CHAINID, source_chain_address);
+            UIFACTORY.getDeployed(ARBITRUM_SEPOLIA_CHAINID, mockedTimelockContract);
         // select one XAccount to generate action
         address xAccount = xAccounts[0];
         address module = modules[0];
