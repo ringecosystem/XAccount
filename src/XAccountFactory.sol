@@ -34,10 +34,9 @@ contract XAccountFactory {
     }
 
     /// @dev Create xAccount on target chain.
-    /// @notice Only could be called by source chain.
     /// @param salt Pseudo random number.
     /// @param fromChainId Source chain id.
-    /// @param owner owner on source chain.
+    /// @param owner Owner on source chain.
     /// @param port Msgport address for send msgport.
     /// @param recovery The default safe recovery module address for xAccount.
     /// @return Deployed xAccount address.
@@ -56,7 +55,7 @@ contract XAccountFactory {
         salt = keccak256(abi.encodePacked(deployer, salt, fromChainId, owner));
         (proxy, module) = _deployXAccount(salt);
         _setupProxy(proxy, module, recovery);
-        _setupModule(module, proxy, fromChainId, deployer, port);
+        _setupModule(module, proxy, fromChainId, owner, port);
 
         emit XAccountCreated(deployer, salt, fromChainId, owner, proxy, module, port, recovery);
     }
@@ -84,8 +83,8 @@ contract XAccountFactory {
         );
     }
 
-    function _setupModule(address module, address proxy, uint256 chainId, address deployer, address port) internal {
-        ISafeMsgportModule(module).setup(proxy, chainId, deployer, port);
+    function _setupModule(address module, address proxy, uint256 chainId, address owner, address port) internal {
+        ISafeMsgportModule(module).setup(proxy, chainId, owner, port);
     }
 
     function _deployXAccount(bytes32 salt) internal returns (address proxy, address module) {
