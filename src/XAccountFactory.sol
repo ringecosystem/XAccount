@@ -34,7 +34,6 @@ contract XAccountFactory {
     }
 
     /// @dev Create xAccount on target chain.
-    /// @notice Only could be called by source chain.
     /// @param salt Pseudo random number.
     /// @param fromChainId Source chain id.
     /// @param owner owner on source chain.
