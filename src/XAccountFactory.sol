@@ -36,7 +36,7 @@ contract XAccountFactory {
     /// @dev Create xAccount on target chain.
     /// @param salt Pseudo random number.
     /// @param fromChainId Source chain id.
-    /// @param owner owner on source chain.
+    /// @param owner Owner on source chain.
     /// @param port Msgport address for send msgport.
     /// @param recovery The default safe recovery module address for xAccount.
     /// @return Deployed xAccount address.
