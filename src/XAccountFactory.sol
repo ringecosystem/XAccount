@@ -56,7 +56,7 @@ contract XAccountFactory {
         salt = keccak256(abi.encodePacked(deployer, salt, fromChainId, owner));
         (proxy, module) = _deployXAccount(salt);
         _setupProxy(proxy, module, recovery);
-        _setupModule(module, proxy, fromChainId, deployer, port);
+        _setupModule(module, proxy, fromChainId, owner, port);
 
         emit XAccountCreated(deployer, salt, fromChainId, owner, proxy, module, port, recovery);
     }
@@ -84,8 +84,8 @@ contract XAccountFactory {
         );
     }
 
-    function _setupModule(address module, address proxy, uint256 chainId, address deployer, address port) internal {
-        ISafeMsgportModule(module).setup(proxy, chainId, deployer, port);
+    function _setupModule(address module, address proxy, uint256 chainId, address owner, address port) internal {
+        ISafeMsgportModule(module).setup(proxy, chainId, owner, port);
     }
 
     function _deployXAccount(bytes32 salt) internal returns (address proxy, address module) {
