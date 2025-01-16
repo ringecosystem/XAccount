@@ -1,1 +1,3 @@
-# <h1 align="center"> xAccount </h1>
+# XAccount
+
+XAccount creates a self-controlled account across multiple EVM chains while preserving your original account’s authority. It leverages [Msgport](https://github.com/ringecosystem/msgport) and [Safe](https://github.com/safe-global/safe-smart-account) to handle cross-chain calls. This repository contains contracts and examples, along with a frontend for seamless interaction. For more details, visit https://github.com/ringecosystem/xaccount-ui.
